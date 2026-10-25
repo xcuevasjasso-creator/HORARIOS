@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>HORARIOS</title>
+  <title>JSFiddle mdn0vs2h</title>
 
   <style>
     
@@ -47,7 +47,7 @@
       }
     }
     </script>
-    <!-- Firebase SDK Scripts -->
+    <!-- Firebase SDK Scripts (Versión 8 Compatible) -->
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <!-- html2canvas for WhatsApp export -->
@@ -135,7 +135,7 @@
                 </div>
                 <div>
                     <h1 class="text-base md:text-lg font-bold tracking-tight">Planificador Operativo Semanal</h1>
-                    <p class="text-[11px] text-indigo-300">Última actualización: <span id="last-update-time">Hoy, 12:03 PM</span> | Estado: <span id="sync-status" class="text-emerald-400 font-medium">Conectando a Firebase...</span></p>
+                    <p class="text-[11px] text-indigo-300">Última actualización: <span id="last-update-time">Hoy, 12:03 PM</span> | Estado: <span id="sync-status" class="text-amber-400 font-medium">Conectando a Firebase...</span></p>
                 </div>
             </div>
 
@@ -494,14 +494,15 @@
     </div>
 
     <script>
+        // Configuración actualizada con la URL real de tu proyecto horarios-2f864
         const firebaseConfig = {
-            apiKey: "TU_API_KEY",
-            authDomain: "TU_AUTH_DOMAIN",
-            databaseURL: "https://horarios-bellman-y-security-default-rtdb.firebaseio.com",
-            projectId: "horarios-bellman-y-security",
-            storageBucket: "TU_STORAGE_BUCKET",
-            messagingSenderId: "TU_MESSAGING_SENDER_ID",
-            appId: "TU_APP_ID"
+            apiKey: "AIzaSyBFQpXUDLOW5wASnPeakVZgBJADaQIQhhI",
+            authDomain: "horarios-2f864.firebaseapp.com",
+            databaseURL: "https://horarios-2f864-default-rtdb.firebaseio.com",
+            projectId: "horarios-2f864",
+            storageBucket: "horarios-2f864.firebasestorage.app",
+            messagingSenderId: "1024713817331",
+            appId: "1:1024713817331:web:3e8203e0bffa6d7c758b86"
         };
 
         if (!firebase.apps.length) {
@@ -622,7 +623,13 @@
                     statusEl.className = "text-emerald-400 font-medium";
                     document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 } else {
-                    loadFallbackLocal(weekId);
+                    currentData = JSON.parse(JSON.stringify(initialData));
+                    currentData.startDate = weekId;
+                    database.ref('schedules/' + weekId).set(currentData);
+                    renderApp();
+
+                    statusEl.textContent = "Sincronizado con Firebase (Nuevo)";
+                    statusEl.className = "text-emerald-400 font-medium";
                 }
             }, (error) => {
                 statusEl.textContent = "Modo Offline (LocalStorage)";
@@ -824,7 +831,6 @@
         function autoPlanWeek() {
             if(!confirm("¿Auto-planificar considerando la Ocupación y Eventos de ESTA semana?")) return;
 
-            // Lee directamente el arreglo de ocupación y eventos de la semana que está visualizando el usuario
             currentData.occupancy.forEach((occ, day) => {
                 let eventText = currentData.events[day] || "--";
                 let isHighDemand = occ >= 150 || eventText !== "--";
@@ -845,6 +851,8 @@
         }
 
         function renderApp() {
+            if (!currentData || !currentData.departments || !currentData.occupancy) return;
+
             const weekInfo = getFormattedWeekDays();
             document.getElementById('table-main-title').textContent = weekInfo.weekTitle;
             document.getElementById('week-display-label').textContent = weekInfo.weekTitle.replace("Horario ", "");
@@ -1206,6 +1214,7 @@
     </script>
 </body>
 </html>
+
 
   <script>
     
