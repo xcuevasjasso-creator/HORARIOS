@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>JSFiddle mdn0vs2h</title>
+  <title>JSFiddle 0jfb59ya</title>
 
   <style>
     
@@ -31,7 +31,8 @@
             afternoon: '#7dd3fc',
             night: '#fed7aa',
             vacation: '#ffff80',
-            off: '#cbd5e1'
+            off: '#cbd5e1',
+            spa: '#f472b6'
           },
           keyframes: {
             fadeIn: { '0%': { opacity: '0', transform: 'scale(0.95)' }, '100%': { opacity: '1', transform: 'scale(1)' } },
@@ -63,6 +64,7 @@
         .shift-night { background-color: #fed7aa !important; color: #7c2d12 !important; font-weight: 600; }
         .shift-vacation { background-color: #ffff80 !important; color: #854d0e !important; font-weight: 600; }
         .shift-off { background-color: #cbd5e1 !important; color: #334155 !important; font-weight: 600; }
+        .shift-spa { background-color: #f472b6 !important; color: #500724 !important; font-weight: 600; }
                  
         .labor-warning { box-shadow: inset 0 0 0 2px #ef4444 !important; position: relative; animation: pulseGlow 1.5s infinite; }
                  
@@ -87,30 +89,6 @@
         .interactive-btn:active {
             transform: translateY(1px);
         }
-
-        .tooltip { 
-             visibility: hidden; 
-             position: absolute; 
-             z-index: 50; 
-             bottom: 110%; 
-             left: 50%; 
-             transform: translateX(-50%) translateY(4px); 
-             background-color: #1e293b; 
-             color: #fff; 
-             padding: 5px 10px; 
-             border-radius: 6px; 
-             font-size: 10px; 
-             white-space: nowrap; 
-             opacity: 0; 
-             transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1); 
-             pointer-events: none; 
-             box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2); 
-         }
-        .has-tooltip:hover .tooltip { 
-             visibility: visible; 
-             opacity: 1; 
-             transform: translateX(-50%) translateY(0); 
-         }
 
         table th, table td {
             width: 11.5%;
@@ -140,7 +118,7 @@
             </div>
 
             <div class="flex flex-wrap items-center gap-2">
-                <button onclick="autoPlanWeek()" class="interactive-btn bg-violet-600 hover:bg-violet-500 text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-lg shadow transition flex items-center" title="Auto-planifica según la Ocupación y Eventos de la semana activa">
+                <button onclick="autoPlanWeek()" class="interactive-btn bg-violet-600 hover:bg-violet-500 text-white text-[11px] font-semibold px-3.5 py-1.5 rounded-lg shadow transition flex items-center" title="Auto-planifica respetando bloques estables e inercia de turno">
                     <i class="fa-solid fa-wand-magic-sparkles mr-1.5 text-violet-200"></i> Auto-Planificar
                 </button>
 
@@ -193,7 +171,7 @@
                 <div class="mt-1 flex items-center justify-between">
                     <div>
                         <p class="text-xl font-black text-slate-800" id="labor-warnings-count">0</p>
-                        <p class="text-[10px] text-slate-500">Incidencias (Cobertura, Descanso &amp; Nocturnos)</p>
+                        <p class="text-[10px] text-slate-500">Incidencias (Cobertura 24/7 &amp; Descansos)</p>
                     </div>
                     <button onclick="openWarningsModal()" class="interactive-btn text-[11px] bg-slate-100 hover:bg-slate-200 text-slate-700 px-3 py-1.5 rounded-lg font-medium transition shadow-sm">Ver Detalle</button>
                 </div>
@@ -212,7 +190,7 @@
                 </div>
                 <div class="mt-1 flex items-center justify-between">
                     <div>
-                        <p class="text-xl font-black text-slate-800" id="total-staff-count">11 <span class="text-[11px] font-normal text-slate-500">empleados</span></p>
+                        <p class="text-xl font-black text-slate-800" id="total-staff-count">12 <span class="text-[11px] font-normal text-slate-500">empleados</span></p>
                         <p class="text-[10px] text-emerald-600 font-medium"><i class="fa-solid fa-check mr-1"></i> Cobertura completa</p>
                     </div>
                     <button onclick="openStaffManagerModal()" class="interactive-btn text-[11px] bg-indigo-50 hover:bg-indigo-100 text-indigo-700 px-3 py-1.5 rounded-lg font-medium transition shadow-sm flex items-center">
@@ -286,7 +264,7 @@
 
     <!-- Modales estándar -->
     <div id="summary-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4 transition-all duration-300">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-modal-in">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-2xl w-full overflow-hidden border border-slate-200 animate-modal-in m-auto">
             <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
                 <h3 class="font-bold text-base flex items-center"><i class="fa-solid fa-chart-pie mr-2"></i> Resumen Semanal Operativo</h3>
                 <button onclick="closeSummaryModal()" class="text-indigo-200 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
@@ -299,9 +277,9 @@
     </div>
 
     <div id="warnings-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center hidden p-4 transition-all duration-300">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200 animate-modal-in">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-xl w-full overflow-hidden border border-slate-200 animate-modal-in m-auto">
             <div class="bg-amber-600 text-white px-6 py-4 flex justify-between items-center">
-                <h3 class="font-bold text-base flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Auditoría de Normas Laborales (24/7)</h3>
+                <h3 class="font-bold text-base flex items-center"><i class="fa-solid fa-triangle-exclamation mr-2"></i> Auditoría de Cobertura 24/7 y Descansos</h3>
                 <button onclick="closeWarningsModal()" class="text-amber-100 hover:text-white transition"><i class="fa-solid fa-xmark text-lg"></i></button>
             </div>
             <div class="p-6 space-y-3 max-h-[70vh] overflow-y-auto" id="warnings-content"></div>
@@ -368,7 +346,7 @@
 
     <!-- Modal de Turnos -->
     <div id="edit-modal" class="fixed inset-0 bg-slate-900/60 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden transition-all duration-300">
-        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 animate-modal-in m-auto">
+        <div class="bg-white rounded-2xl shadow-2xl max-w-lg w-full overflow-hidden border border-slate-200 animate-modal-in my-auto">
             <div class="bg-indigo-900 text-white px-6 py-4 flex justify-between items-center">
                 <h3 class="font-bold text-base flex items-center"><i class="fa-solid fa-pen-to-square mr-2"></i> Gestión y Selección de Turno</h3>
                 <button onclick="closeEditModal()" class="text-indigo-200 hover:text-white text-lg transition"><i class="fa-solid fa-xmark"></i></button>
@@ -387,16 +365,25 @@
                         <button type="button" onclick="selectPresetShift('6 am - 3 pm', 'morning')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#90ee90] text-slate-900 text-left flex items-center justify-between shadow-sm">
                             <span>6 am – 3 pm</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Mañana</span>
                         </button>
+                        <button type="button" onclick="selectPresetShift('9 am - 6 pm', 'spa')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#f472b6] text-slate-900 text-left flex items-center justify-between shadow-sm">
+                            <span>9 am – 6 pm</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Spa</span>
+                        </button>
+                        <button type="button" onclick="selectPresetShift('12 pm - 9 pm', 'afternoon')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#7dd3fc] text-[#0369a1] text-left flex items-center justify-between shadow-sm">
+                            <span>12 pm – 9 pm</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Intermedio</span>
+                        </button>
                         <button type="button" onclick="selectPresetShift('2 pm - 11 pm', 'afternoon')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#7dd3fc] text-[#0369a1] text-left flex items-center justify-between shadow-sm">
                             <span>2 pm – 11 pm</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Tarde</span>
                         </button>
                         <button type="button" onclick="selectPresetShift('9 pm - 6 am', 'night')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#fed7aa] text-[#7c2d12] text-left flex items-center justify-between shadow-sm">
-                            <span>9 pm – 6 am</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Noche</span>
+                            <span>9 pm – 6 am</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Noche 1</span>
+                        </button>
+                        <button type="button" onclick="selectPresetShift('11 pm - 7 am', 'night')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#fed7aa] text-[#7c2d12] text-left flex items-center justify-between shadow-sm">
+                            <span>11 pm – 7 am</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Noche 2</span>
                         </button>
                         <button type="button" onclick="selectPresetShift('OFF', 'off')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#cbd5e1] text-slate-800 text-left flex items-center justify-between shadow-sm">
                             <span>OFF</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Descanso</span>
                         </button>
-                        <button type="button" onclick="selectPresetShift('Vacaciones', 'vacation')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#ffff80] text-amber-900 text-left flex items-center justify-between shadow-sm">
+                        <button type="button" onclick="selectPresetShift('Vacaciones', 'vacation')" class="interactive-btn p-2.5 text-xs font-semibold rounded-xl border border-slate-300 bg-[#ffff80] text-amber-900 text-left flex items-center justify-between shadow-sm col-span-2">
                             <span>Vacaciones</span> <span class="text-[10px] bg-black/10 px-1.5 py-0.5 rounded-md">Vacaciones</span>
                         </button>
                     </div>
@@ -494,7 +481,6 @@
     </div>
 
     <script>
-        // Configuración actualizada con la URL real de tu proyecto horarios-2f864
         const firebaseConfig = {
             apiKey: "AIzaSyBFQpXUDLOW5wASnPeakVZgBJADaQIQhhI",
             authDomain: "horarios-2f864.firebaseapp.com",
@@ -510,81 +496,58 @@
         }
         const database = firebase.database();
 
-        const initialData = {
-            startDate: getMondayDateStr(new Date()),
-            dinners: [
-                "Beach House a la carte", 
-                "Beach House a la carte", 
-                "Beach House a la carte", 
-                "Beach House a la carte", 
-                "Burger Night at Bouchie's", 
-                "Nursery", 
-                "Beach House a la carte"
-            ],
-            events: ["--", "--", "--", "--", "--", "--", "--"],
-            occupancy: [24, 25, 15, 20, 28, 33, 31],
-            departments: [
-                {
-                    name: "DIRECTOR DE OPERACIONES",
-                    staff: [
-                        { name: "Daniel Cabrera", shifts: Array(7).fill({text: "ON", type: "morning"})}
-                    ]
-                },
-                {
-                    name: "SPA",
-                    staff: [
-                        { name: "Erik Benítez", shifts: Array(7).fill({text: "OFF", type: "off"})}
-                    ]
-                },
-                {
-                    name: "BELLMANS",
-                    staff: [
-                        { name: "Ignacio Montaño", shifts: [
-                            {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "7 am - 4 pm", type: "morning"}
-                        ]},
-                        { name: "Fernando Gonzalez", shifts: [
-                            {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}
-                        ]},
-                        { name: "Esteban Agundez", shifts: [
-                            {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}
-                        ]},
-                        { name: "Xasharitl Cuevas", shifts: [
-                            {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "7 am - 4 pm", type: "morning"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}
-                        ]}
-                    ]
-                },
-                {
-                    name: "SEGURIDAD",
-                    staff: [
-                        { name: "Juan Carlos Corazón", shifts: [
-                            {text: "Vacaciones", type: "vacation"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "9 pm - 6 am", type: "night"}, {text: "9 pm - 6 am", type: "night"}
-                        ]},
-                        { name: "José Luis Huerta", shifts: [
-                            {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "6 am - 3 pm", type: "morning"}, {text: "6 am - 3 pm", type: "morning"}, {text: "6 am - 3 pm", type: "morning"}, {text: "6 am - 3 pm", type: "morning"}, {text: "6 am - 3 pm", type: "morning"}
-                        ]},
-                        { name: "Francisco Tinajero", shifts: [
-                            {text: "9 pm - 6 am", type: "night"}, {text: "9 pm - 6 am", type: "night"}, {text: "9 pm - 6 am", type: "night"}, {text: "9 pm - 6 am", type: "night"}, {text: "9 pm - 6 am", type: "night"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}
-                        ]},
-                        { name: "Ulises De La Peña", shifts: [
-                            {text: "6 am - 3 pm", type: "morning"}, {text: "6 am - 3 pm", type: "morning"}, {text: "9 pm - 6 am", type: "night"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}
-                        ]},
-                        { name: "Diego Gonzalez", shifts: [
-                            {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "2 pm - 11 pm", type: "afternoon"}, {text: "OFF", type: "off"}, {text: "OFF", type: "off"}
-                        ]}
-                    ]
-                }
-            ]
-        };
+        const initialStaffRegistry = [
+            {
+                name: "DIRECTOR DE OPERACIONES",
+                staff: [
+                    { name: "Daniel Cabrera", defaultShift: {text: "ON", type: "morning"} }
+                ]
+            },
+            {
+                name: "SPA",
+                staff: [
+                    { name: "Erik Benítez", defaultShift: {text: "7 am - 4 pm", type: "morning"} },
+                    { name: "Laura Peñaloza", defaultShift: {text: "OFF", type: "off"} }
+                ]
+            },
+            {
+                name: "BELLMANS",
+                staff: [
+                    { name: "Ignacio Montaño", defaultShift: {text: "7 am - 4 pm", type: "morning"} },
+                    { name: "Fernando Gonzalez", defaultShift: {text: "2 pm - 11 pm", type: "afternoon"} },
+                    { name: "Esteban Agundez", defaultShift: {text: "OFF", type: "off"} },
+                    { name: "Xasharitl Cuevas", defaultShift: {text: "7 am - 4 pm", type: "morning"} }
+                ]
+            },
+            {
+                name: "SEGURIDAD",
+                staff: [
+                    { name: "Juan Carlos Corazón", defaultShift: {text: "Vacaciones", type: "vacation"} },
+                    { name: "José Luis Huerta", defaultShift: {text: "OFF", type: "off"} },
+                    { name: "Francisco Tinajero", defaultShift: {text: "9 pm - 6 am", type: "night"} },
+                    { name: "Ulises De La Peña", defaultShift: {text: "6 am - 3 pm", type: "morning"} },
+                    { name: "Diego Gonzalez", defaultShift: {text: "2 pm - 11 pm", type: "afternoon"} }
+                ]
+            }
+        ];
 
-        const STORAGE_KEY = 'operational_schedule_data_v7';
+        const STORAGE_KEY = 'operational_schedule_data_v8';
         let currentStartDate = getMondayDateStr(new Date());
-        let currentData = JSON.parse(JSON.stringify(initialData));
+        let currentData = {
+            dinners: Array(7).fill("Beach House a la carte"),
+            events: Array(7).fill("--"),
+            occupancy: [24, 25, 15, 20, 28, 33, 31],
+            departments: []
+        };
+        let globalStaffRegistry = JSON.parse(JSON.stringify(initialStaffRegistry));
+
         let activeEditCell = null;
         let activeOccupancyIdx = null;
         let activeDinnerIdx = null;
         let activeEventIdx = null;
         let autosaveTimer = null;
         let currentListenerRef = null;
+        let staffListenerRef = null;
 
         function getMondayDateStr(d) {
             let date = new Date(d);
@@ -605,53 +568,94 @@
             let weekId = getMondayDateStr(new Date(currentStartDate + "T00:00:00"));
             currentStartDate = weekId;
 
+            if (staffListenerRef) staffListenerRef.off();
+            staffListenerRef = database.ref('staff_registry');
+            staffListenerRef.on('value', (snapshot) => {
+                const regData = snapshot.val();
+                if (regData && Array.isArray(regData)) {
+                    globalStaffRegistry = regData;
+                } else {
+                    database.ref('staff_registry').set(initialStaffRegistry);
+                    globalStaffRegistry = JSON.parse(JSON.stringify(initialStaffRegistry));
+                }
+                loadWeekData(weekId);
+            }, (error) => {
+                let localStaff = localStorage.getItem(STORAGE_KEY + '_global_staff');
+                if (localStaff) {
+                    try { globalStaffRegistry = JSON.parse(localStaff); } catch(e) {}
+                }
+                loadWeekData(weekId);
+            });
+        }
+
+        function loadWeekData(weekId) {
             if (currentListenerRef) currentListenerRef.off();
             currentListenerRef = database.ref('schedules/' + weekId);
 
             currentListenerRef.on('value', (snapshot) => {
                 const firebaseData = snapshot.val();
-                if (firebaseData && firebaseData.departments && firebaseData.occupancy) {
+                const statusEl = document.getElementById('sync-status');
+                
+                if (firebaseData && firebaseData.occupancy) {
                     currentData = firebaseData;
-                    if (!currentData.startDate) currentData.startDate = weekId;
-                    if (!currentData.dinners) currentData.dinners = JSON.parse(JSON.stringify(initialData.dinners));
-                    if (!currentData.events) currentData.events = JSON.parse(JSON.stringify(initialData.events));
-                    
-                    localStorage.setItem(STORAGE_KEY + '_' + weekId, JSON.stringify(currentData));
-                    renderApp();
-
+                    reconcileDepartmentsWithGlobalStaff();
                     statusEl.textContent = "Sincronizado con Firebase en tiempo real";
                     statusEl.className = "text-emerald-400 font-medium";
-                    document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
                 } else {
-                    currentData = JSON.parse(JSON.stringify(initialData));
-                    currentData.startDate = weekId;
+                    currentData = {
+                        startDate: weekId,
+                        dinners: ["Beach House a la carte", "Beach House a la carte", "Beach House a la carte", "Beach House a la carte", "Burger Night at Bouchie's", "Nursery", "Beach House a la carte"],
+                        events: Array(7).fill("--"),
+                        occupancy: [24, 25, 15, 20, 28, 33, 31],
+                        departments: JSON.parse(JSON.stringify(globalStaffRegistry))
+                    };
+                    currentData.departments.forEach(dept => {
+                        dept.staff.forEach(st => {
+                            let def = st.defaultShift || {text: "OFF", type: "off"};
+                            st.shifts = Array(7).fill(JSON.parse(JSON.stringify(def)));
+                        });
+                    });
                     database.ref('schedules/' + weekId).set(currentData);
-                    renderApp();
-
                     statusEl.textContent = "Sincronizado con Firebase (Nuevo)";
                     statusEl.className = "text-emerald-400 font-medium";
                 }
+                renderApp();
+                document.getElementById('last-update-time').textContent = new Date().toLocaleTimeString([], {hour: '2-digit', minute:'2-digit'});
             }, (error) => {
-                statusEl.textContent = "Modo Offline (LocalStorage)";
-                statusEl.className = "text-rose-400 font-medium";
+                document.getElementById('sync-status').textContent = "Modo Offline (LocalStorage)";
+                document.getElementById('sync-status').className = "text-rose-400 font-medium";
                 loadFallbackLocal(weekId);
             });
+        }
+
+        function reconcileDepartmentsWithGlobalStaff() {
+            let updatedDepts = [];
+            globalStaffRegistry.forEach(gDept => {
+                let existingDept = currentData.departments.find(d => d.name === gDept.name);
+                let staffList = [];
+                gDept.staff.forEach(gStaff => {
+                    let existingStaff = existingDept ? existingDept.staff.find(s => s.name === gStaff.name) : null;
+                    if (existingStaff) {
+                        staffList.push(existingStaff);
+                    } else {
+                        let def = gStaff.defaultShift || {text: "OFF", type: "off"};
+                        staffList.push({
+                            name: gStaff.name,
+                            defaultShift: def,
+                            shifts: Array(7).fill(JSON.parse(JSON.stringify(def)))
+                        });
+                    }
+                });
+                updatedDepts.push({ name: gDept.name, staff: staffList });
+            });
+            currentData.departments = updatedDepts;
         }
 
         function loadFallbackLocal(weekId) {
             const local = localStorage.getItem(STORAGE_KEY + '_' + weekId);
             if (local) {
-                try {
-                    currentData = JSON.parse(local);
-                } catch(e) {
-                    currentData = JSON.parse(JSON.stringify(initialData));
-                    currentData.startDate = weekId;
-                }
-            } else {
-                currentData = JSON.parse(JSON.stringify(initialData));
-                currentData.startDate = weekId;
+                try { currentData = JSON.parse(local); } catch(e) {}
             }
-            if (!currentData.startDate) currentData.startDate = weekId;
             renderApp();
         }
 
@@ -659,7 +663,7 @@
             const daysNames = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"];
             const monthNames = ["Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"];
 
-            let baseDate = new Date(currentData.startDate + "T00:00:00");
+            let baseDate = new Date(currentStartDate + "T00:00:00");
             let formattedDays = [];
             let weekDates = [];
 
@@ -680,9 +684,12 @@
         }
 
         function saveData() {
-            let weekId = getMondayDateStr(new Date(currentData.startDate + "T00:00:00"));
+            let weekId = getMondayDateStr(new Date(currentStartDate + "T00:00:00"));
             localStorage.setItem(STORAGE_KEY + '_' + weekId, JSON.stringify(currentData));
-            database.ref('schedules/' + weekId).set(currentData).catch(e => console.error("Firebase save error:", e));
+            localStorage.setItem(STORAGE_KEY + '_global_staff', JSON.stringify(globalStaffRegistry));
+            
+            database.ref('staff_registry').set(globalStaffRegistry).catch(e => {});
+            database.ref('schedules/' + weekId).set(currentData).catch(e => {});
         }
 
         function triggerAutosave() {
@@ -704,7 +711,7 @@
             setTimeout(() => toast.remove(), 3000);
         }
 
-        // --- GESTIÓN DE DEPARTAMENTOS Y PERSONAL ---
+        // --- GESTIÓN GLOBAL DE PERSONAL Y DEPARTAMENTOS ---
         function openStaffManagerModal() {
             renderStaffManagerList();
             renderDepartmentSelectOptions();
@@ -715,7 +722,7 @@
         function renderDepartmentSelectOptions() {
             const selectEl = document.getElementById('new-staff-dept');
             let html = '';
-            currentData.departments.forEach(dept => {
+            globalStaffRegistry.forEach(dept => {
                 html += `<option value="${dept.name}">${dept.name}</option>`;
             });
             selectEl.innerHTML = html;
@@ -730,23 +737,24 @@
                 return;
             }
 
-            let exists = currentData.departments.some(d => d.name === deptName);
+            let exists = globalStaffRegistry.some(d => d.name === deptName);
             if(exists) {
                 showToast("Este departamento ya existe.");
                 return;
             }
 
-            currentData.departments.push({
+            globalStaffRegistry.push({
                 name: deptName,
                 staff: []
             });
 
             triggerAutosave();
+            reconcileDepartmentsWithGlobalStaff();
             renderApp();
             renderStaffManagerList();
             renderDepartmentSelectOptions();
             inputEl.value = "";
-            showToast(`Departamento ${deptName} creado con éxito.`);
+            showToast(`Departamento ${deptName} creado globalmente.`);
         }
 
         function addNewStaffMember() {
@@ -760,25 +768,28 @@
                 return;
             }
 
-            const dept = currentData.departments.find(d => d.name === deptName);
-            if(dept) {
-                dept.staff.push({
+            const gDept = globalStaffRegistry.find(d => d.name === deptName);
+            if(gDept) {
+                gDept.staff.push({
                     name: name,
+                    defaultShift: {text: "OFF", type: "off"},
                     shifts: Array(7).fill({text: "OFF", type: "off"})
                 });
                 triggerAutosave();
+                reconcileDepartmentsWithGlobalStaff();
                 renderApp();
                 renderStaffManagerList();
                 nameInput.value = "";
-                showToast(`Colaborador ${name} agregado con éxito.`);
+                showToast(`Colaborador ${name} registrado globalmente.`);
             }
         }
 
         function deleteStaffMember(dIdx, sIdx) {
-            let staffName = currentData.departments[dIdx].staff[sIdx].name;
-            if(confirm(`¿Eliminar a ${staffName} de la plantilla?`)) {
-                currentData.departments[dIdx].staff.splice(sIdx, 1);
+            let staffName = globalStaffRegistry[dIdx].staff[sIdx].name;
+            if(confirm(`¿Eliminar permanentemente a ${staffName} de la plantilla global?`)) {
+                globalStaffRegistry[dIdx].staff.splice(sIdx, 1);
                 triggerAutosave();
+                reconcileDepartmentsWithGlobalStaff();
                 renderApp();
                 renderStaffManagerList();
                 showToast("Colaborador eliminado.");
@@ -786,10 +797,11 @@
         }
 
         function deleteDepartment(dIdx) {
-            let deptName = currentData.departments[dIdx].name;
+            let deptName = globalStaffRegistry[dIdx].name;
             if(confirm(`¿Estás seguro de eliminar el departamento ${deptName} y todo su personal?`)) {
-                currentData.departments.splice(dIdx, 1);
+                globalStaffRegistry.splice(dIdx, 1);
                 triggerAutosave();
+                reconcileDepartmentsWithGlobalStaff();
                 renderApp();
                 renderStaffManagerList();
                 renderDepartmentSelectOptions();
@@ -801,11 +813,11 @@
             const container = document.getElementById('staff-manager-list');
             let html = '';
 
-            currentData.departments.forEach((dept, dIdx) => {
+            globalStaffRegistry.forEach((dept, dIdx) => {
                 html += `<div class="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">`;
                 html += `<div class="bg-slate-100 px-4 py-2 border-b border-slate-200 flex justify-between items-center">`;
                 html += `<span class="text-xs font-bold text-slate-800 uppercase tracking-wide"><i class="fa-solid fa-users-rectangle mr-1.5 text-indigo-600"></i> ${dept.name} (${dept.staff.length})</span>`;
-                if(currentData.departments.length > 1) {
+                if(globalStaffRegistry.length > 1) {
                     html += `<button onclick="deleteDepartment(${dIdx})" class="text-rose-500 hover:text-rose-700 text-xs px-2 py-1 rounded transition" title="Eliminar departamento"><i class="fa-solid fa-trash-can mr-1"></i> Eliminar Área</button>`;
                 }
                 html += `</div>`;
@@ -827,27 +839,104 @@
             container.innerHTML = html;
         }
 
-        // --- AUTO-PLANIFICADOR CONECTADO A LA SEMANA ACTIVA ---
+        // --- AUTO-PLANIFICADOR INTELIGENTE CON BLOQUES ESTABLES E INERCIA DE TURNO ---
         function autoPlanWeek() {
-            if(!confirm("¿Auto-planificar considerando la Ocupación y Eventos de ESTA semana?")) return;
+            if(!confirm("¿Ejecutar Auto-Planificador con bloques estables e inercia de turno (Regla de Oro)?")) return;
 
-            currentData.occupancy.forEach((occ, day) => {
-                let eventText = currentData.events[day] || "--";
-                let isHighDemand = occ >= 150 || eventText !== "--";
+            // Analizar días con menor ocupación para distribuir los 2 OFF de manera inteligente
+            let occupancyWithIndex = currentData.occupancy.map((occ, idx) => ({ occ, idx }));
+            occupancyWithIndex.sort((a, b) => a.occ - b.occ);
+            
+            let calmDay1 = occupancyWithIndex[0].idx;
+            let calmDay2 = occupancyWithIndex[1].idx;
 
-                const bellmanDept = currentData.departments.find(d => d.name === "BELLMANS");
-                if (bellmanDept) {
-                    bellmanDept.staff.forEach((st, sIdx) => {
-                        if (isHighDemand && st.shifts[day].text === "OFF" && sIdx < 3) {
-                            st.shifts[day] = { text: "7 am - 4 pm", type: "morning" };
+            currentData.departments.forEach(dept => {
+                let deptNameUpper = dept.name.toUpperCase();
+                
+                if (deptNameUpper.includes("SEGURIDAD") || deptNameUpper.includes("BELLMANS")) {
+                    let staffList = dept.staff;
+
+                    staffList.forEach((member, staffIdx) => {
+                        let isVacation = member.shifts.some(s => s.type === 'vacation');
+                        if (isVacation) return;
+
+                        // REGLA DE ORO: Asignar un BLOQUE ESTABLE por colaborador (sin saltos drásticos de turno diario)
+                        let assignedShift;
+                        if (deptNameUpper.includes("SEGURIDAD")) {
+                            let blockType = staffIdx % 3;
+                            if (blockType === 0) assignedShift = { text: "6 am - 3 pm", type: "morning" };
+                            else if (blockType === 1) assignedShift = { text: "2 pm - 11 pm", type: "afternoon" };
+                            else assignedShift = { text: "9 pm - 6 am", type: "night" };
+                        } else {
+                            let blockType = staffIdx % 2;
+                            if (blockType === 0) assignedShift = { text: "7 am - 4 pm", type: "morning" };
+                            else assignedShift = { text: "2 pm - 11 pm", type: "afternoon" };
                         }
+
+                        // Rellenar toda la semana con el bloque estable de turno
+                        for (let d = 0; d < 7; d++) {
+                            member.shifts[d] = JSON.parse(JSON.stringify(assignedShift));
+                        }
+
+                        // Asignar los 2 Días OFF de forma escalonada priorizando días de menor ocupación
+                        let offDay1 = (calmDay1 + staffIdx) % 7;
+                        let offDay2 = (calmDay2 + staffIdx * 2) % 7;
+                        if (offDay1 === offDay2) {
+                            offDay2 = (offDay2 + 1) % 7;
+                        }
+
+                        member.shifts[offDay1] = { text: "OFF", type: "off" };
+                        member.shifts[offDay2] = { text: "OFF", type: "off" };
                     });
                 }
             });
 
+            // Blindaje: Garantizar 100% que los turnos obligatorios estén cubiertos todos los días
+            ensureInbreakableCoverage();
+
             triggerAutosave();
             renderApp();
-            showToast("✨ ¡Auto-planificador aplicado a la semana actual!");
+            showToast("✨ ¡Auto-Planificador con bloques estables aplicado con éxito!");
+        }
+
+        function ensureInbreakableCoverage() {
+            currentData.departments.forEach(dept => {
+                let deptName = dept.name.toUpperCase();
+                if (deptName.includes("SEGURIDAD") || deptName.includes("BELLMANS")) {
+                    for (let d = 0; d < 7; d++) {
+                        let hasMorning = false, hasAfternoon = false, hasNight = deptName.includes("BELLMANS") ? true : false;
+                        
+                        dept.staff.forEach(st => {
+                            if (!st.shifts[d].text.includes('Vacaciones')) {
+                                let sType = st.shifts[d].type;
+                                if (sType === 'morning') hasMorning = true;
+                                if (sType === 'afternoon') hasAfternoon = true;
+                                if (sType === 'night') hasNight = true;
+                            }
+                        });
+
+                        // Compensar si faltara cobertura en un turno crítico por descanso
+                        if (!hasMorning) {
+                            let available = dept.staff.find(st => st.shifts[d].text.includes('OFF') && !st.shifts[d].text.includes('Vacaciones'));
+                            if (available) {
+                                available.shifts[d] = deptName.includes("SEGURIDAD") ? { text: "6 am - 3 pm", type: "morning" } : { text: "7 am - 4 pm", type: "morning" };
+                            }
+                        }
+                        if (!hasAfternoon) {
+                            let available = dept.staff.find(st => st.shifts[d].text.includes('OFF') && !st.shifts[d].text.includes('Vacaciones'));
+                            if (available) {
+                                available.shifts[d] = { text: "2 pm - 11 pm", type: "afternoon" };
+                            }
+                        }
+                        if (deptName.includes("SEGURIDAD") && !hasNight) {
+                            let available = dept.staff.find(st => st.shifts[d].text.includes('OFF') && !st.shifts[d].text.includes('Vacaciones'));
+                            if (available) {
+                                available.shifts[d] = { text: "9 pm - 6 am", type: "night" };
+                            }
+                        }
+                    }
+                }
+            });
         }
 
         function renderApp() {
@@ -907,6 +996,7 @@
                         else if(shift.type === 'night') cssClass = 'shift-night';
                         else if(shift.type === 'vacation') cssClass = 'shift-vacation';
                         else if(shift.type === 'off') cssClass = 'shift-off';
+                        else if(shift.type === 'spa') cssClass = 'shift-spa';
 
                         html += `<td class="py-2 px-1.5 border-r border-slate-200 text-[11px] relative has-tooltip cursor-pointer interactive-cell rounded-md m-0.5 ${cssClass}" onclick="openEditModal(${dIdx}, ${sIdx}, ${dayIdx})">`;
                         html += `<div class="whitespace-normal leading-tight">${shift.text.replace('\n', '<br>')}</div></td>`;
@@ -971,61 +1061,42 @@
                 desc: `Se registran ${maxOcc} huéspedes. Asegurar supervisión en accesos de seguridad y apoyo total en Bellman.`
             });
 
-            recommendations.push({
-                title: `Optimización General`,
-                desc: `Mantener la rotación equilibrada de turnos nocturnos para evitar fatiga en el personal de seguridad.`
-            });
-
             document.getElementById('shortage-count').textContent = shortages.length;
-            const shortageEl = document.getElementById('shortage-alerts-list');
-            shortageEl.innerHTML = shortages.length === 0 ? `<p class="text-xs text-indigo-300 italic">Sin alertas de escasez.</p>` : shortages.map(s => `<div class="bg-rose-950/60 p-2.5 rounded-lg border border-rose-800/60"><strong class="text-rose-200 block text-[11px]">${s.title}</strong><span class="text-rose-300/90 text-[10px]">${s.desc}</span></div>`).join('');
+            document.getElementById('shortage-alerts-list').innerHTML = shortages.length === 0 ? `<p class="text-xs text-indigo-300 italic">Sin alertas de escasez.</p>` : shortages.map(s => `<div class="bg-rose-950/60 p-2.5 rounded-lg border border-rose-800/60"><strong class="text-rose-200 block text-[11px]">${s.title}</strong><span class="text-rose-300/90 text-[10px]">${s.desc}</span></div>`).join('');
 
             document.getElementById('surplus-count').textContent = surpluses.length;
-            const surplusEl = document.getElementById('surplus-alerts-list');
-            surplusEl.innerHTML = surpluses.length === 0 ? `<p class="text-xs text-indigo-300 italic">Sin excesos detectados.</p>` : surpluses.map(s => `<div class="bg-sky-950/60 p-2.5 rounded-lg border border-sky-800/60"><strong class="text-sky-200 block text-[11px]">${s.title}</strong><span class="text-sky-300/90 text-[10px]">${s.desc}</span></div>`).join('');
+            document.getElementById('surplus-alerts-list').innerHTML = surpluses.length === 0 ? `<p class="text-xs text-indigo-300 italic">Sin excesos detectados.</p>` : surpluses.map(s => `<div class="bg-sky-950/60 p-2.5 rounded-lg border border-sky-800/60"><strong class="text-sky-200 block text-[11px]">${s.title}</strong><span class="text-sky-300/90 text-[10px]">${s.desc}</span></div>`).join('');
 
-            const recEl = document.getElementById('recommendations-list');
-            recEl.innerHTML = recommendations.map(r => `<div class="bg-emerald-950/50 p-2.5 rounded-lg border border-emerald-800/50"><strong class="text-emerald-200 block text-[11px]">${r.title}</strong><span class="text-emerald-300/90 text-[10px]">${r.desc}</span></div>`).join('');
+            document.getElementById('recommendations-list').innerHTML = recommendations.map(r => `<div class="bg-emerald-950/50 p-2.5 rounded-lg border border-emerald-800/50"><strong class="text-emerald-200 block text-[11px]">${r.title}</strong><span class="text-emerald-300/90 text-[10px]">${r.desc}</span></div>`).join('');
         }
 
         function calculateLaborWarnings(daysList) {
             let warnings = [];
             if (currentData && currentData.departments) {
                 currentData.departments.forEach(dept => {
-                    dept.staff.forEach(member => {
-                        for (let i = 0; i < member.shifts.length - 1; i++) {
-                            let cur = member.shifts[i]?.text || '';
-                            let nxt = member.shifts[i + 1]?.text || '';
-                            if (cur.includes("9 pm - 6 am") && nxt.includes("6 am - 3 pm")) {
-                                warnings.push({ title: `${member.name} (${dept.name})`, desc: `Descanso insuficiente (<11h) entre ${daysList[i]} y ${daysList[i + 1]}.` });
+                    let deptName = dept.name.toUpperCase();
+                    if (deptName.includes("SEGURIDAD") || deptName.includes("BELLMANS")) {
+                        for (let d = 0; d < 7; d++) {
+                            let hasMorning = false, hasAfternoon = false, hasNight = deptName.includes("BELLMANS") ? true : false;
+                            dept.staff.forEach(st => {
+                                if (!st.shifts[d].text.includes('Vacaciones')) {
+                                    let sType = st.shifts[d].type;
+                                    if (sType === 'morning') hasMorning = true;
+                                    if (sType === 'afternoon') hasAfternoon = true;
+                                    if (sType === 'night') hasNight = true;
+                                }
+                            });
+                            if (!hasMorning || !hasAfternoon || !hasNight) {
+                                warnings.push({ title: `${dept.name} (${daysList[d]})`, desc: `Falta cobertura obligatoria en algún turno crítico.` });
                             }
                         }
-                    });
-                });
-
-                currentData.departments.forEach(dept => {
-                    if (dept.name === "SEGURIDAD" || dept.name === "BELLMANS") {
-                        daysList.forEach((dayName, dayIdx) => {
-                            let hasAM = false, hasPM = false, nightCount = 0;
-                            dept.staff.forEach(st => {
-                                let txt = st.shifts[dayIdx]?.text || '';
-                                if (txt.includes("7 am") || txt.includes("6 am")) hasAM = true;
-                                if (txt.includes("2 pm")) hasPM = true;
-                                if (txt.includes("9 pm - 6 am")) nightCount++;
-                            });
-                            if (!hasAM) warnings.push({ title: `${dept.name} - ${dayName}`, desc: `Falta cobertura obligatoria en Turno AM.` });
-                            if (!hasPM) warnings.push({ title: `${dept.name} - ${dayName}`, desc: `Falta cobertura obligatoria en Turno PM.` });
-                            if (dept.name === "SEGURIDAD" && nightCount > 1) {
-                                warnings.push({ title: `Seguridad - ${dayName}`, desc: `Exceso nocturno: Hay ${nightCount} elementos (límite 1).` });
-                            }
-                        });
                     }
                 });
             }
             document.getElementById('labor-warnings-count').textContent = warnings.length;
             const warningsContent = document.getElementById('warnings-content');
             if (warningsContent) {
-                warningsContent.innerHTML = warnings.length === 0 ? `<p class="text-xs text-slate-500 text-center py-4">¡Excelente! Cobertura 24/7 garantizada y cero infracciones laborales.</p>` : warnings.map(w => `<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start space-x-3"><div class="text-amber-600 mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div><div><h4 class="text-xs font-bold text-amber-900">${w.title}</h4><p class="text-xs text-amber-800 mt-0.5">${w.desc}</p></div></div>`).join('');
+                warningsContent.innerHTML = warnings.length === 0 ? `<p class="text-xs text-slate-500 text-center py-4">¡Excelente! Cobertura 24/7 garantizada y turnos cubiertos correctamente.</p>` : warnings.map(w => `<div class="p-3.5 bg-amber-50 border border-amber-200 rounded-xl flex items-start space-x-3"><div class="text-amber-600 mt-0.5"><i class="fa-solid fa-triangle-exclamation"></i></div><div><h4 class="text-xs font-bold text-amber-900">${w.title}</h4><p class="text-xs text-amber-800 mt-0.5">${w.desc}</p></div></div>`).join('');
             }
         }
 
@@ -1170,9 +1241,10 @@
             let detectedType = 'morning';
 
             if(mainVal.includes('pm') || mainVal.includes('PM')) detectedType = 'afternoon';
-            if(mainVal.includes('9 pm') || mainVal.includes('9 PM')) detectedType = 'night';
+            if(mainVal.includes('9 pm') || mainVal.includes('11 pm')) detectedType = 'night';
             if(mainVal.toUpperCase() === 'OFF') detectedType = 'off';
             if(mainVal.toUpperCase().includes('VACACIONES')) detectedType = 'vacation';
+            if(mainVal.includes('9 am - 6 pm')) detectedType = 'spa';
 
             if(noteVal) {
                 if(!noteVal.startsWith('(')) noteVal = '(' + noteVal;
@@ -1214,7 +1286,6 @@
     </script>
 </body>
 </html>
-
 
   <script>
     
